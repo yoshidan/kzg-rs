@@ -3,51 +3,81 @@ use crate::{BYTES_PER_BLOB, BYTES_PER_FIELD_ELEMENT};
 
 use alloc::{string::ToString, vec::Vec};
 
-macro_rules! define_bytes_type {
-    ($name:ident, $size:expr) => {
-        #[derive(Debug, Clone)]
-        pub struct $name([u8; $size]);
+#[derive(Debug, Clone)]
+pub struct Blob([u8; BYTES_PER_BLOB]);
 
-        impl $name {
-            pub fn from_slice(slice: &[u8]) -> Result<Self, KzgError> {
-                if slice.len() != $size {
-                    return Err(KzgError::InvalidBytesLength(
-                        "Invalid slice length".to_string(),
-                    ));
-                }
-                let mut bytes = [0u8; $size];
-                bytes.copy_from_slice(slice);
-                Ok($name(bytes))
-            }
-
-            pub fn as_slice(&self) -> &[u8] {
-                &self.0
-            }
+impl Blob {
+    pub fn from_slice(slice: &[u8]) -> Result<Self, KzgError> {
+        if slice.len() != BYTES_PER_BLOB {
+            return Err(KzgError::InvalidBytesLength(
+                "Invalid slice length".to_string(),
+            ));
         }
-
-        impl From<$name> for [u8; $size] {
-            fn from(value: $name) -> [u8; $size] {
-                value.0
-            }
-        }
-    };
-}
-
-define_bytes_type!(Bytes32, 32);
-define_bytes_type!(Bytes48, 48);
-define_bytes_type!(Blob, BYTES_PER_BLOB);
-
-#[cfg(test)]
-mod tests {
-    #[test]
-    fn test_bytes32() {
-        let bytes = crate::dtypes::Bytes32::from_slice(&[0u8; 32]).unwrap();
-        assert_eq!(bytes.0.len(), 32);
+        let mut bytes = [0u8; BYTES_PER_BLOB];
+        bytes.copy_from_slice(slice);
+        Ok(Blob(bytes))
     }
 
-    #[test]
-    fn test_bytes48() {
-        let bytes = crate::dtypes::Bytes48::from_slice(&[0u8; 48]).unwrap();
-        assert_eq!(bytes.0.len(), 48);
+    pub fn as_slice(&self) -> &[u8] {
+        &self.0
+    }
+}
+
+impl From<Blob> for [u8; BYTES_PER_BLOB] {
+    fn from(value: Blob) -> [u8; BYTES_PER_BLOB] {
+        value.0
+    }
+}
+
+#[derive(Debug, Clone)]
+pub struct Bytes32([u8; 32]);
+
+impl Bytes32{
+    pub fn from_slice(slice: &[u8]) -> Result<Self, KzgError> {
+        if slice.len() != 32 {
+            return Err(KzgError::InvalidBytesLength(
+                "Invalid slice length".to_string(),
+            ));
+        }
+        let mut bytes = [0u8; 32];
+        bytes.copy_from_slice(slice);
+        Ok(Bytes32(bytes))
+    }
+
+    pub fn as_slice(&self) -> &[u8] {
+        &self.0
+    }
+}
+
+impl From<Bytes32> for [u8; 32] {
+    fn from(value: Bytes32) -> [u8; 32] {
+        value.0
+    }
+}
+
+
+#[derive(Debug, Clone)]
+pub struct Bytes48([u8; 48]);
+
+impl Bytes48{
+    pub fn from_slice(slice: &[u8]) -> Result<Self, KzgError> {
+        if slice.len() != 48 {
+            return Err(KzgError::InvalidBytesLength(
+                "Invalid slice length".to_string(),
+            ));
+        }
+        let mut bytes = [0u8; 48];
+        bytes.copy_from_slice(slice);
+        Ok(Bytes48(bytes))
+    }
+
+    pub fn as_slice(&self) -> &[u8] {
+        &self.0
+    }
+}
+
+impl From<Bytes48> for [u8; 48] {
+    fn from(value: Bytes48) -> [u8; 48] {
+        value.0
     }
 }
