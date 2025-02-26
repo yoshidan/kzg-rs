@@ -15,7 +15,6 @@ static DEFAULT_KZG_SETTINGS: KzgSettings = KzgSettings {
 };
 
 #[derive(Debug, Clone, PartialEq, Eq)]
-#[repr(C, align(4))]
 pub struct KzgSettings {
 }
 
