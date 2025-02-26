@@ -1,7 +1,8 @@
 use crate::enums::KzgError;
-use crate::{BYTES_PER_BLOB};
 
 use alloc::{string::ToString};
+
+const BYTES_PER_BLOB: usize = 4096 * 32;
 
 #[derive(Debug, Clone)]
 pub struct Blob([u8; BYTES_PER_BLOB]);
