@@ -104,13 +104,8 @@ pub fn evaluate_polynomial_in_evaluation_form(
 
     let mut inverses_in = vec![Scalar::default(); NUM_FIELD_ELEMENTS_PER_BLOB];
     let mut inverses = vec![Scalar::default(); NUM_FIELD_ELEMENTS_PER_BLOB];
-    let roots_of_unity = Scalar::one();
-    for i in 0..NUM_FIELD_ELEMENTS_PER_BLOB {
-        if x == roots_of_unity[i] {
-            return Ok(polynomial[i]);
-        }
-        inverses_in[i] = x - roots_of_unity[i];
-    }
+    let roots_of_unity = [Scalar::one()];
+
 
     batch_inversion(
         &mut inverses,

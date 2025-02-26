@@ -11,6 +11,9 @@ pub fn get_kzg_settings() -> KzgSettings {
     }
 }
 
+static DEFAULT_KZG_SETTINGS: KzgSettings = KzgSettings {
+};
+
 #[derive(Debug, Clone, PartialEq, Eq)]
 #[repr(C, align(4))]
 pub struct KzgSettings {
@@ -47,8 +50,7 @@ impl EnvKzgSettings {
     pub fn get(&self) -> &KzgSettings {
         match self {
             Self::Default => {
-                let settings = get_kzg_settings();
-                self.set(settings)
+                &DEFAULT_KZG_SETTINGS
             }
             Self::Custom(settings) => settings,
         }
