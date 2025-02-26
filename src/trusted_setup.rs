@@ -1,5 +1,3 @@
-use crate::{enums::KzgError, NUM_G1_POINTS, NUM_ROOTS_OF_UNITY};
-
 use alloc::sync::Arc;
 use core::{
     hash::{Hash, Hasher},
@@ -53,11 +51,5 @@ impl EnvKzgSettings {
             }
             Self::Custom(settings) => settings,
         }
-    }
-}
-
-impl KzgSettings {
-    pub fn load_trusted_setup_file() -> Result<Self, KzgError> {
-        Ok(get_kzg_settings())
     }
 }

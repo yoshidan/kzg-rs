@@ -1,7 +1,7 @@
 use crate::enums::KzgError;
-use crate::{BYTES_PER_BLOB, BYTES_PER_FIELD_ELEMENT};
+use crate::{BYTES_PER_BLOB};
 
-use alloc::{string::ToString, vec::Vec};
+use alloc::{string::ToString};
 
 #[derive(Debug, Clone)]
 pub struct Blob([u8; BYTES_PER_BLOB]);
